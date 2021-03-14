@@ -45,7 +45,7 @@ const CreateChannelModal: VFC<Props> = ({
       e.preventDefault()
       axios
         .post(
-          `/api/workspaces/${workspace}/channels`,
+          `http://localhost:3095/api/workspaces/${workspace}/channels`,
           { name: newChannel },
           { withCredentials: true }
         )
