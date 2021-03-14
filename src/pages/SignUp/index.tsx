@@ -17,10 +17,7 @@ import {
 } from './styles'
 
 const SignUp = () => {
-  const { data, error, revalidate } = useSWR(
-    'http://localhost:3095/api/users',
-    fetcher
-  )
+  const { data } = useSWR('http://localhost:3095/api/users', fetcher)
 
   const [email, onChangeEmail] = useInput('')
   const [nickname, onChangeNickname] = useInput('')
