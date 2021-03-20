@@ -23,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-toastify": "^7.0.3",
+    "socket.io-client": "^2.4.0",
     "swr": "^0.5.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -55,6 +56,7 @@
     "@types/autosize": "^3.0.7",
     "@types/loadable__component": "^5.13.3",
     "@types/react-router": "^5.1.12",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "@types/socket.io-client": "^1.4.36"
   }
 }
