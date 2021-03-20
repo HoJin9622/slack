@@ -25,8 +25,6 @@ const DirectMessage = () => {
     fetcher
   )
 
-  console.log(chatData)
-
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault()
@@ -60,7 +58,7 @@ const DirectMessage = () => {
         />
         <span>{userData.nickname}</span>
       </Header>
-      <ChatList />
+      <ChatList chatData={chatData} />
       <ChatBox
         chat={chat}
         onSubmitForm={onSubmitForm}

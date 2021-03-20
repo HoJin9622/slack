@@ -15,7 +15,10 @@ import {
 } from '../SignUp/styles'
 
 const LogIn = () => {
-  const { data, mutate } = useSWR('http://localhost:3095/api/users', fetcher)
+  const { data, revalidate } = useSWR(
+    'http://localhost:3095/api/users',
+    fetcher
+  )
 
   const [logInError, setLogInError] = useState(false)
   const [email, onChangeEmail] = useInput('')
@@ -32,13 +35,13 @@ const LogIn = () => {
           { withCredentials: true }
         )
         .then(response => {
-          mutate(response.data, false)
+          revalidate()
         })
         .catch(error => {
           setLogInError(error.response?.data?.statusCode === 401)
         })
     },
-    [email, password, mutate]
+    [email, password, revalidate]
   )
 
   if (data === undefined) {
