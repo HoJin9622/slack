@@ -1,36 +1,48 @@
-import React, { useCallback, useRef, VFC } from 'react'
+import React, { forwardRef, useCallback } from 'react'
 import { IDM } from '../../typings/db'
 import Chat from '../Chat'
 import { ChatZone, Section, StickyHeader } from './styles'
-import { Scrollbars } from 'react-custom-scrollbars'
+import { Scrollbars, positionValues } from 'react-custom-scrollbars'
 
 interface Props {
   chatSections: { [key: string]: IDM[] }
+  setSize: (
+    size: number | ((size: number) => number)
+  ) => Promise<IDM[][] | undefined>
+  isEmpty: boolean
+  isReachingEnd: boolean
 }
 
-const ChatList: VFC<Props> = ({ chatSections }) => {
-  const scrollbarRef = useRef(null)
+const ChatList = forwardRef<Scrollbars, Props>(
+  ({ chatSections, setSize, isEmpty, isReachingEnd }, ref) => {
+    const onScroll = useCallback((values: positionValues) => {
+      if (values.scrollTop === 0 && !isReachingEnd) {
+        console.log('가장위')
+        setSize(prevSize => prevSize + 1).then(() => {
+          // 스크롤 위치 유지
+        })
+      }
+    }, [])
 
-  const onScroll = useCallback(() => {}, [])
-
-  return (
-    <ChatZone>
-      <Scrollbars autoHide ref={scrollbarRef} onScrollFrame={onScroll}>
-        {Object.entries(chatSections).map(([date, chats]) => {
-          return (
-            <Section className={`section-${date}`} key={date}>
-              <StickyHeader>
-                <button>{date}</button>
-              </StickyHeader>
-              {chats.map(chat => (
-                <Chat key={chat.id} data={chat} />
-              ))}
-            </Section>
-          )
-        })}
-      </Scrollbars>
-    </ChatZone>
-  )
-}
+    return (
+      <ChatZone>
+        <Scrollbars autoHide ref={ref} onScrollFrame={onScroll}>
+          {Object.entries(chatSections).map(([date, chats]) => {
+            return (
+              <Section className={`section-${date}`} key={date}>
+                <StickyHeader>
+                  <button>{date}</button>
+                </StickyHeader>
+                {chats.map(chat => (
+                  <Chat key={chat.id} data={chat} />
+                ))}
+              </Section>
+            )
+          })}
+        </Scrollbars>
+      </ChatZone>
+    )
+  }
+)
 
 export default ChatList
