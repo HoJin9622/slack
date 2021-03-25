@@ -68,7 +68,7 @@ const Workspace: VFC = () => {
       : null,
     fetcher
   )
-  const { data: memberData } = useSWR<IChannel[]>(
+  const { data: memberData } = useSWR<IUser[]>(
     userData
       ? `http://localhost:3095/api/workspaces/${workspace}/members`
       : null,
