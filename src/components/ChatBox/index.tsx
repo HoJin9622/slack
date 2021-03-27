@@ -85,7 +85,7 @@ const ChatBox: VFC<Props> = ({
         </EachMention>
       )
     },
-    []
+    [memberData]
   )
 
   return (
